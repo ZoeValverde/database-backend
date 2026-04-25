@@ -1,8 +1,11 @@
+import { db } from "./config.js"
+
 const getUsers = () => {
     console.log("leyendo usuario")
 }
 
-const createUser = (username, email, password) => {
+const createUser = async (username, email, password) => {
+    
 }
 
 const updateUser = (id, updates) => {
@@ -13,4 +16,4 @@ const deleteUser = (id) => {
     console.log("usuario eliminado")
 }
 
-export{getUser, updateUser, deleteUser, createUser}
+export{getUsers, updateUser, deleteUser, createUser}

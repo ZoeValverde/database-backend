@@ -1,16 +1,15 @@
-const getUser = () => {
+const getUsers = () => {
     console.log("leyendo usuario")
 }
 
-const createUser = () => {
-    console.log("usuario creado")
+const createUser = (username, email, password) => {
 }
 
-const updateUser = () => {
+const updateUser = (id, updates) => {
     console.log("usuario actualizado")
 }
 
-const deleteUser = () => {
+const deleteUser = (id) => {
     console.log("usuario eliminado")
 }
 

@@ -1,4 +1,4 @@
-import { getUser, updateUser, createUser, deleteUser } from "./controllers.js"
+import { getUsers, updateUser, createUser, deleteUser } from "./controllers.js"
 
 const argv = process.argv
 const params = argv.slice(2)
@@ -7,10 +7,10 @@ let resultado
 
 switch (operacion) {
     case "get":
-        resultado = getUser()
+        resultado = getUsers()
         break
     case "add":
-        resultado =createUser()
+        resultado= createUser()
         break
     case "update":
         resultado = updateUser()

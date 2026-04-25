@@ -5,25 +5,29 @@ const params = argv.slice(2)
 const operacion = params[0]
 let resultado
 
+
 switch (operacion) {
     case "get":
-        resultado = getUsers()
+        resultado = await getUsers()
         break
     case "add":
-        resultado= createUser()
+        resultado= await createUser(params[1], params[2], params[3])
         break
     case "update":
-        resultado = updateUser()
+        resultado =await updateUser(params[1], params[2], params[3], params[4])
         break
     case "delete":
-        resultado = deleteUser()
+        resultado = await deleteUser(params[1])
         break
     default:
-        resultado= "operacion invalida"
+        resultado= "Se necesita una operación valida"
 }
 
 const main = () => {
-  console.log(resultado)
+    if (resultado=== undefined) {
+      return
+    }
+    console.log(resultado)
 }
 
 main()

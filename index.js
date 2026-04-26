@@ -6,6 +6,7 @@ const operacion = params[0]
 let resultado
 
 
+
 switch (operacion) {
     case "get":
         resultado = await getUsers()

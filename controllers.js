@@ -1,9 +1,15 @@
 import {db} from "./config.js"
 
 const getUsers = async () => {
+
+    if ([]) {
+        console.log(`No se encuentra ningún cuenta, crea una cuenta con la operación "add"`)
+        return
+    }
     const q = `SELECT * from users `
     const [response] = await db.query(q)
-    return  response }
+    return response
+}
 
 const createUser = async (username, email, password) => {
 
@@ -14,6 +20,7 @@ const createUser = async (username, email, password) => {
     if (response.serverStatus===2 ) {
         return "usuario creado"
     }
+
 }
 
 const updateUser = async (username, email, password, id) => {

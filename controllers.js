@@ -35,7 +35,7 @@ const createUser = async (username, email, password) => {
         console.log("Email invalido")
         userInvalidation = true;
     }
-    if (password.length < 4 || password.length > 10) {
+    if (password.length < 3 || password.length > 10) {
         console.log("el password debe tener minimo 4 máximo 10 carácteres")
         userInvalidation = true
     }
@@ -49,15 +49,55 @@ const createUser = async (username, email, password) => {
     const [response] = await db.query(q, [crypto.randomUUID(), username, email, password])
 
     if (response.serverStatus === 2) {
-        return "usuario creado"
+        return "el usuario de ha creado con éxito"
     }
 }
 
 
-const updateUser = async (username, email, password, id) => {
+const updateUser = async (newUsername, newEmail, newPassword, id) => {
+    if (!newUsername || !newEmail || !newPassword || !id) {
+        console.log("Se necesita nombre de usuario, email, constraseña y el id para poder actualizar el usuario")
+        return
+    }
+
+    if (!usernameRegex.test(newUsername)) {
+        console.log("El username solo puede contener letras.")
+        userInvalidation = true;
+    }
+
+    if (newUsername.length < 4 || newUsername.length > 10) {
+        console.log("el username debe tener minimo 4 máximo 10 carácteres")
+        userInvalidation = true;
+    }
+
+    if (!newEmail.endsWith("@gmail.com")) {
+        console.log("Email invalido")
+        userInvalidation = true;
+    }
+    if (newPassword.length < 4 || newPassword.length > 10) {
+        console.log("el password debe tener minimo 4 máximo 10 carácteres")
+        userInvalidation = true
+    }
+
+    if (userInvalidation) {
+        return
+    }
+
    const q = `UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?`
-    const [response] = await db.query(q, [username, email, password, id])
-    
+    const [response] = await db.query(q, [newUsername, newEmail, newPassword, id])
+
+
+    if (response.affectedRows==0) {
+        console.log("no se encontró el id, pruebe otro")
+        return
+        
+    }
+        if (!response.info.includes(`Changed: 1`)) {
+            console.log("Los datos son los mismos, intente con otro")
+            return
+
+    }
+
     if (response.serverStatus===2 ) {
         return "usuario actualizado"
     }

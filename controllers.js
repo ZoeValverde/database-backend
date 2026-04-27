@@ -105,9 +105,18 @@ const updateUser = async (newUsername, newEmail, newPassword, id) => {
 }
 
 const deleteUser = async (id) => {
+    if (!id) {
+    console.log("Se necesita un id para poder eliminar el usuario")}
 
   const q = `DELETE from users WHERE id = ?;`
     const [response] = await db.query(q, [id]);
+
+    console.log(response)
+
+    if (response.affectedRows == 0) {
+        console.log("No se encuentra ese Id")
+        return
+    }
     
     if (response.serverStatus === 2) {
         return "usuario eliminado"
@@ -121,6 +130,7 @@ const deleteAll = async () => {
     
     if (response.serverStatus === 2) {
         console.log("usuarios eliminado")
+        return
     }
 }
 

@@ -15,7 +15,13 @@ const getUsers = async () => {
 
     //En caso de no haber ningún usuario aparece el error
     if (response.length === 0) {
-        console.log("No se están encontrando usuarios")
+        console.log(`
+             ===========================================
+                           ❌ ERROR❌
+
+                     No se encontró usuarios
+            =============================================
+            `)
         return
     }
     return response
@@ -25,26 +31,57 @@ const createUser = async (username, email, password) => {
 
 //control de errores al crear el usuario
     if (!username || !email || !password) {
-        console.log("Se necesita nombre de usuario, email y constraseña para poder crear un usuario")
+        console.log(`
+             =========================================================
+                                   ❌ ERROR❌
+
+              Se necesita un username, un email y una contraseña
+            ========================================================
+            `)
         return;
     }
 
     if (!usernameRegex.test(username)) {
-        console.log("El username solo puede contener letras." )
+        console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                           El username debe tener letras 
+            ========================================================
+            `)
         userInvalidation = true;
     }
 
     if (username.length < 4 || username.length > 10) {
-        console.log("el username debe tener minimo 4 máximo 10 carácteres")
+        console.log(`
+             =========================================================
+                                   ❌ ERROR❌
+
+                El username debe tener minimo 4 máximo 10 carácteres
+            ===========================================================
+            `)
         userInvalidation = true;
     }
 
     if (!email.endsWith("@gmail.com")) {
-        console.log("Email invalido")
+        console.log(`
+             ========================================================
+                                   ❌ ERROR❌
+
+                              El email es invalido. 
+                    Debe tener con finalización "@gmail.com"
+            =========================================================
+            `)
         userInvalidation = true;
     }
     if (password.length < 3 || password.length > 10) {
-        console.log("el password debe tener minimo 4 máximo 10 carácteres")
+        console.log(`
+             =========================================================
+                                   ❌ ERROR❌
+
+                El password debe tener minimo 4 máximo 10 carácteres
+            ===========================================================
+            `)
         userInvalidation = true
     }
 //En caso de que userInvalidation sea positivo se retorna, evita ejecutar el Query
@@ -52,13 +89,23 @@ const createUser = async (username, email, password) => {
         return
     }
 
+    const data = {
+        username,
+        email,
+        password
+    }
 //Se crea un Query para crear en users un objeto con los siguientes datos
     const q = `INSERT INTO users (id, username, email, password) VALUES(?,?,?,?)`
 
     const [response] = await db.query(q, [crypto.randomUUID(), username, email, password])
-
+     
     if (response.serverStatus === 2) {
-        return "el usuario de ha creado con éxito"
+        return `
+             ======================================================
+                            ✅ Ejecución con éxito✅
+
+                    El usuario se ha creado correctamente
+            ===========================================================`
     }
 }
 
@@ -67,26 +114,59 @@ const updateUser = async (newUsername, newEmail, newPassword, id) => {
 
     //control de errores con lo necesario que los datos de usuario sean validos
     if (!newUsername || !newEmail || !newPassword || !id) {
-        console.log("Se necesita nombre de usuario, email, constraseña y el id para poder actualizar el usuario")
+        console.log(`
+            ================================================================
+                                     ❌ ERROR❌
+
+              Para poder actualizar se necesita el username, email, password
+                       y el id del usuario que quiero editar
+                           
+            =================================================================
+            `)
         return
     }
 
     if (!usernameRegex.test(newUsername)) {
-        console.log("El username solo puede contener letras.")
+        console.log(`
+            ==========================================================
+                                   ❌ ERROR❌
+
+                El username debe tener minimo 4 máximo 10 carácteres
+            ===========================================================
+            `)
         userInvalidation = true;
     }
 
     if (newUsername.length < 4 || newUsername.length > 10) {
-        console.log("el username debe tener minimo 4 máximo 10 carácteres")
+        console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                El username debe tener minimo 4 máximo 10 carácteres
+            ===========================================================
+            `)
         userInvalidation = true;
     }
 
     if (!newEmail.endsWith("@gmail.com")) {
-        console.log("Email invalido")
+        console.log(`
+            ========================================================
+                                   ❌ ERROR❌
+
+                              El email es invalido. 
+                    Debe tener con finalización "@gmail.com"
+            =========================================================
+            `)
         userInvalidation = true;
     }
     if (newPassword.length < 4 || newPassword.length > 10) {
-        console.log("el password debe tener minimo 4 máximo 10 carácteres")
+        console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                El username debe tener minimo 4 máximo 10 carácteres
+            ===========================================================
+            `)
         userInvalidation = true
     }
 
@@ -99,18 +179,36 @@ const updateUser = async (newUsername, newEmail, newPassword, id) => {
 
 //Este funciona para ver si se encuentra un id como el que el cliente 
     if (response.affectedRows==0) {
-        console.log("no se encontró el id, pruebe otro")
+        console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                No se ha encontrado el usuario, intente con otro id
+            ===========================================================
+            `)
         return   
     }
 
 //Si no hubo cambios es porque se encontraron los mismos datos, 
         if (!response.info.includes(`Changed: 1`)) {
-            console.log("Los datos son los mismos, intente con otro")
+            console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                   Los datos son los mismos, intente con otro
+            ===========================================================
+                `)
             return
     }
 
     if (response.serverStatus===2 ) {
-        return "usuario actualizado"
+        return `
+         ======================================================
+                            ✅ Ejecución con éxito✅
+
+                    El usuario se ha actualizado correctamente
+        ===========================================================
+        `
     }
 }
 //Función para eliminar un usuario, usando un id como parametro
@@ -118,7 +216,13 @@ const deleteUser = async (id) => {
 
 //un if en caso de que no haya ningún id como argumento
     if (!id) {
-        console.log("Se necesita un id para poder eliminar el usuario")
+        console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                  Se necesita un id para poder borrar el usuario
+            ===========================================================
+            `)
         return
     }
 
@@ -127,12 +231,25 @@ const deleteUser = async (id) => {
 
 //Lo mismo que en updateUser, si no hubo fila afectada es porque no se encontró un id igual al que el cliente puso como input.
     if (response.affectedRows == 0) {
-        console.log("No se encuentra ese Id")
+        console.log(`
+            =========================================================
+                                   ❌ ERROR❌
+
+                   No se ha encontrado el usuario, intente otro id
+            ===========================================================
+            `)
         return
     }
     
     if (response.serverStatus === 2) {
-        return "usuario eliminado"
+        return 
+        `
+          ======================================================
+                            ✅ Ejecución con éxito✅
+
+                    El usuario se ha actualizado correctamente
+        ===========================================================
+        `
     }
     console.log(response)
     

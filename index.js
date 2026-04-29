@@ -25,11 +25,29 @@ try {
             resultado = await deleteUser(params[1])
             break
         default:
-            resultado = "Se necesita una operación valida"
+            resultado = `
+            ===========================================================
+                                   ❌ ERROR❌
+
+                 Se necesita operaciones validas para poder ejecutar
+                                  -POR EJEMPLO-
+
+            node index.js add <username> <email> <password>
+            node index.js get
+            node index.js update <username> <email> <password> <id>
+            node index.js delete <id>
+            ============================================================
+            `
     }
 } catch(error) {
-    if (error.code==='ECONNREFUSED') {
-        console.log("Hay errores de conexión con la base de datos")
+    if (error.code === 'ECONNREFUSED') {
+        console.log(`
+            ===========================================
+                           ❌ ERROR❌
+
+            Hay errores de conexión con la base de datos
+            =============================================
+            `)
     }
 }
 

@@ -49,6 +49,7 @@ Para poder ejecutar cualquier operación se debe de ejecutar :
 node index.js o npm run dev
 
 
+
 ####   CREAR UN USUARIO
 
 Para poder crear un usuario se necesita un nombre de usuario, email y contraseña usando la operación **add**
@@ -56,22 +57,22 @@ Para poder crear un usuario se necesita un nombre de usuario, email y contraseñ
 
 **Condiciones para los datos del usuario**
 
-*Username*
+###### Username
 Deben ser letras y debe tener entre 4 a 10 carácteres.
 
-*Email*
+###### Email
 Debe tener la terminación "@gmail.com".
 
-*Password*
+###### Password
 Debe tener entre 4 a 10 carácteres.
 
 
-*Formato de ejecución en la terminal*
+##### Formato de ejecución en la terminal
 
 node index.js add < username > < email> < password >
 
 
-*Por ejemplo:*
+##### Por ejemplo:
 
 node index.js add jose jose@gmail.com 1234
 
@@ -81,10 +82,14 @@ node index.js add jose jose@gmail.com 1234
 
 Para poder leer los usuarios se debe de usando la operación **get**
 
-*Formato de ejecución en la terminal*
+
+##### Formato de ejecución en la terminal
+
 
 
 node index.js get
+
+
 
 ####   ACTUALIZAR UN USUARIO
 
@@ -94,26 +99,31 @@ Para poder actualizar un usuario se necesita un nombre de usuario, email, contra
 
 ##### Condiciones para los datos del usuario
 
-*Username*
+
+###### Username
+
 Deben ser letras y debe tener entre 4 a 10 carácteres.
 
 
-*Email*
+###### Email
 Debe tener la terminación "@gmail.com".
 
 
-*Password*
+###### Password
 Debe tener entre 4 a 10 carácteres.
 
 
-*Formato de ejecución en la terminal*
+##### Formato de ejecución en la terminal
 
 node index.js update < username > < email> < password > < id >
 
 
-*Por ejemplo:*
+
+##### Por ejemplo:
 
 node index.js update rosa rosa@gmail.com 4321 e5408692-10be-450b-8ed4-0947708e1a40
+
+
 
 
 ####   ELIMINAR UN USUARIO
@@ -122,13 +132,13 @@ node index.js update rosa rosa@gmail.com 4321 e5408692-10be-450b-8ed4-0947708e1a
 Para poder eliminar un usuario necesita el id del usuario a eliminar. Se debe de usando la operación **delete**
 
 
-*Formato de ejecución en la terminal*
+##### Formato de ejecución en la terminal
 
 
 node index.js delete < id >
 
 
-*Por ejemplo:*
+##### Por ejemplo:
 
 
 node index.js delete e5408692-10be-450b-8ed4-0947708e1a40

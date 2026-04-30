@@ -88,12 +88,7 @@ const createUser = async (username, email, password) => {
     if (userInvalidation) {
         return
     }
-
-    const data = {
-        username,
-        email,
-        password
-    }
+    
 //Se crea un Query para crear en users un objeto con los siguientes datos
     const q = `INSERT INTO users (id, username, email, password) VALUES(?,?,?,?)`
 
